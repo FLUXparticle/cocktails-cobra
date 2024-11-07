@@ -107,7 +107,7 @@ Barsirup Mandel
 Strawberry Cup
 Erdbeeren
 1cl:Barsirup Erdbeere
-2cL:Barsirup Kokos
+2cl:Barsirup Kokos
 2cl:Sahne
 15cl:Ananassaft
 
@@ -191,7 +191,7 @@ Moon Walker
 5cl:Schwarzer-Johannisbeer-Nektar
 
 Golden Nugget
-2cl:Fruchtsirup
+2cl:Fruchtsirup Limette
 2cl:Zitronensaft
 12cl:Maracujanektar
 
@@ -200,7 +200,7 @@ Red Orchid
 2cl:Fruchtsirup Limette
 1cl:Zitronensaft
 6cl:Grapefruitsaft
-10cl:Oragensaft
+10cl:Orangensaft
 
 Southside
 2cl:Barsirup Kokos
@@ -222,7 +222,7 @@ Californian
 
 Cocomint
 2cl:Barsirup Kokos
-2cl:Barsirup Pfefferminz
+2cl:Barsirup Pfefferminze
 1cl:Zitronensaft
 8cl:Orangensaft
 8cl:Ananassaft
@@ -302,7 +302,7 @@ Tropicana
 2cl:Fruchtsirup Limette
 2cl:Fruchtsirup Kokos
 8cl:Kirschnektar
-8cl:Bananennaktar
+8cl:Bananennektar
 
 Caribbean Fruitpunch
 2cl:Barsirup Blue Curacao
@@ -371,7 +371,7 @@ Red Angle
 Bitter Lemon
 
 Limetten-Spritzer
-4cl:Fruchtsirup Limete
+4cl:Fruchtsirup Limette
 Mineralwasser mit Kohlensäure
 
 Azzurro Notte
@@ -381,12 +381,13 @@ Azzurro Notte
 Tonic Water
 
 Pink Dream
-2clFruchtsirup Preiselbeere
+2cl:Fruchtsirup Preiselbeere
 8cl:Orangensaft
-10cl:BitterLemon
+10cl:Bitter Lemon
 
 Yellow Boxer
-2cl:Fruchtsirup Manderine
+2cl:Fruchtsirup Mandarine
 2cl:Zitronensaft
 10cl:Orangensaft
 10cl:Tonic Water
+

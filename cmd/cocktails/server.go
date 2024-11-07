@@ -11,7 +11,7 @@ var serverCmd = &cobra.Command{
 	Aliases: []string{"serv"},
 	Short:   "Runs server",
 	Run: func(cmd *cobra.Command, args []string) {
-		server.RunServer(useChi)
+		server.RunServer()
 	},
 }
 

@@ -4,29 +4,17 @@ import (
 	"context"
 	ginzap "github.com/gin-contrib/zap"
 	"github.com/gin-gonic/gin"
-	"github.com/go-chi/chi/v5"
 	"go.uber.org/fx"
 	"go.uber.org/fx/fxevent"
 	"go.uber.org/zap"
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
-	"moul.io/chizap"
 	"moul.io/zapgorm2"
 	"net"
 	"net/http"
 	"time"
 )
-
-func NewChiHandler(handler *CocktailsHandler, log *zap.Logger) http.Handler {
-	r := chi.NewRouter()
-	r.Use(chizap.New(log, &chizap.Opts{
-		WithReferer:   true,
-		WithUserAgent: true,
-	}))
-	r.Get("/cocktails", handler.CocktailHandler)
-	return r
-}
 
 func NewGinHandler(handler *CocktailsHandler, log *zap.Logger) http.Handler {
 	gin.SetMode(gin.ReleaseMode)
@@ -37,6 +25,8 @@ func NewGinHandler(handler *CocktailsHandler, log *zap.Logger) http.Handler {
 
 	r.GET("/cocktails", handler.CocktailList)
 	r.GET("/cocktails/:id", handler.CocktailDetails)
+
+	// TODO weitere Endpoints hier
 
 	return r
 }
@@ -82,19 +72,18 @@ func NewDatabase(log *zap.Logger) *gorm.DB {
 	return db
 }
 
-func RunServer(useChi bool) {
-	constructors := []any{
-		NewHTTPServer,
+func baseConstructors() []any {
+	// TODO weitere Konstruktoren hier
+	return []any{
 		NewCocktailsHandler,
-		NewZapLogger,
 		NewDatabase,
+		NewGinHandler,
+		NewZapLogger,
 	}
+}
 
-	if useChi {
-		constructors = append(constructors, NewChiHandler)
-	} else {
-		constructors = append(constructors, NewGinHandler)
-	}
+func RunServer() {
+	constructors := append(baseConstructors(), NewHTTPServer)
 
 	fx.New(
 		fx.WithLogger(func(log *zap.Logger) fxevent.Logger {

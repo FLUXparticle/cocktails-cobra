@@ -23,10 +23,6 @@ func NewCocktailsHandler(log *zap.Logger, db *gorm.DB) *CocktailsHandler {
 	}
 }
 
-func (h *CocktailsHandler) CocktailHandler(w http.ResponseWriter, r *http.Request) {
-	w.Write([]byte("Hi!"))
-}
-
 func (h *CocktailsHandler) CocktailList(c *gin.Context) {
 	var cocktails []common.Cocktail
 	h.db.Find(&cocktails)
@@ -38,7 +34,7 @@ func (h *CocktailsHandler) CocktailList(c *gin.Context) {
 
 	time.Sleep(time.Second)
 
-	c.JSON(200, result)
+	c.JSON(http.StatusOK, result)
 }
 
 func (h *CocktailsHandler) CocktailDetails(c *gin.Context) {
@@ -50,5 +46,7 @@ func (h *CocktailsHandler) CocktailDetails(c *gin.Context) {
 
 	time.Sleep(time.Second)
 
-	c.JSON(200, cocktail)
+	c.JSON(http.StatusOK, cocktail)
 }
+
+// TODO weitere Handler Functions hier

@@ -69,6 +69,7 @@ func writeCocktails(filename string, cocktails []*common.Cocktail) {
 
 	db.AutoMigrate(&common.Cocktail{})
 	db.AutoMigrate(&common.Instruction{})
+	// TODO weitere Tabellen hier erstellen lassen (Programm mit Kommando initdb aufrufen)
 
 	for _, cocktail := range cocktails {
 		db.Create(cocktail)
