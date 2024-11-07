@@ -6,12 +6,18 @@ import (
 	"fmt"
 	"github.com/stretchr/testify/assert"
 	"go.uber.org/fx"
+	"gorm.io/gorm"
 	"io"
 	"net/http"
 	"net/http/httptest"
 	"strings"
 	"testing"
 )
+
+func resetRatings(db *gorm.DB) {
+	db.Exec("DELETE FROM ratings")
+	db.Exec("DELETE FROM sqlite_sequence WHERE name = 'ratings'")
+}
 
 // setupTestHandler stellt über Fx die Handler-Instanz und die Gorm-Datenbank bereit,
 // sodass sie in den Tests verwendet werden können.
@@ -22,6 +28,7 @@ func setupTestHandler(t *testing.T) http.Handler {
 
 	app := fx.New(
 		fx.Provide(constructors...),
+		fx.Invoke(resetRatings),
 		fx.Populate(&handler),
 	)
 

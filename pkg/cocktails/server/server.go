@@ -16,7 +16,11 @@ import (
 	"time"
 )
 
-func NewGinHandler(handler *CocktailsHandler, log *zap.Logger) http.Handler {
+func NewGinHandler(
+	handler *CocktailsHandler,
+	ratingsHandler *RatingsHandler,
+	log *zap.Logger,
+) http.Handler {
 	gin.SetMode(gin.ReleaseMode)
 
 	r := gin.New()
@@ -27,6 +31,9 @@ func NewGinHandler(handler *CocktailsHandler, log *zap.Logger) http.Handler {
 	r.GET("/cocktails/:id", handler.CocktailDetails)
 
 	// TODO weitere Endpoints hier
+	r.GET("/ingredients", handler.IngredientsList)
+	r.POST("/ratings/cocktails/:id", ratingsHandler.AddRating)
+	r.GET("/ratings/cocktails/:id/average", ratingsHandler.GetAverageRating)
 
 	return r
 }
@@ -76,6 +83,7 @@ func baseConstructors() []any {
 	// TODO weitere Konstruktoren hier
 	return []any{
 		NewCocktailsHandler,
+		NewRatingsHandler,
 		NewDatabase,
 		NewGinHandler,
 		NewZapLogger,

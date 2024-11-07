@@ -24,15 +24,24 @@ func NewCocktailsHandler(log *zap.Logger, db *gorm.DB) *CocktailsHandler {
 }
 
 func (h *CocktailsHandler) CocktailList(c *gin.Context) {
+	ingredient := c.Query("ingredient")
+
 	var cocktails []common.Cocktail
-	h.db.Find(&cocktails)
+
+	if ingredient != "" {
+		// Cocktails suchen, die die angegebene Zutat enthalten
+		h.db.Joins("JOIN instructions ON instructions.cocktail_id = cocktails.id").
+			Where("instructions.ingredient = ?", ingredient).
+			Group("cocktails.id").
+			Find(&cocktails)
+	} else {
+		h.db.Find(&cocktails)
+	}
 
 	result := make(map[uint]string)
 	for _, cocktail := range cocktails {
 		result[cocktail.ID] = cocktail.Name
 	}
-
-	time.Sleep(time.Second)
 
 	c.JSON(http.StatusOK, result)
 }
@@ -50,3 +59,19 @@ func (h *CocktailsHandler) CocktailDetails(c *gin.Context) {
 }
 
 // TODO weitere Handler Functions hier
+func (h *CocktailsHandler) IngredientsList(c *gin.Context) {
+	ingredientsMap := make(map[string]bool)
+
+	var instructions []common.Instruction
+	h.db.Find(&instructions)
+	for _, instruction := range instructions {
+		ingredientsMap[instruction.Ingredient] = true
+	}
+
+	var ingredients []string
+	for ingredient := range ingredientsMap {
+		ingredients = append(ingredients, ingredient)
+	}
+
+	c.JSON(http.StatusOK, ingredients)
+}
