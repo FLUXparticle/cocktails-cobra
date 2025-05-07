@@ -1,7 +1,6 @@
 package cocktails
 
 import (
-	"cocktails-cobra/pkg/cocktails"
 	"github.com/spf13/cobra"
 )
 
@@ -15,10 +14,10 @@ var cocktailCmd = &cobra.Command{
 		if cocktailID > 0 {
 			// Ein spezieller Cocktail wird angefragt.
 			// Hier übergeben wir die ID als int, in dem wir sie, falls nötig, in einen String konvertieren.
-			cocktails.DisplayCocktail(cocktailID)
+			cocktailService.DisplayCocktail(cocktailID)
 		} else {
 			// Wenn keine ID gesetzt ist, werden alle Cocktails abgefragt.
-			cocktails.DisplayCocktails()
+			cocktailService.DisplayCocktails()
 		}
 	},
 }
