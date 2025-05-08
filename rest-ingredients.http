@@ -1,0 +1,29 @@
+POST http://localhost:8080/ingredients
+Content-Type: application/json
+
+{"name":"Minze"}
+
+> {%  client.global.set("id", response.body.id); %}
+
+###
+
+GET http://localhost:8080/ingredients
+
+###
+
+PUT http://localhost:8080/ingredients/{{id}}
+Content-Type: application/json
+
+{"name":"Mieze"}
+
+###
+
+GET http://localhost:8080/ingredients
+
+###
+
+DELETE http://localhost:8080/ingredients/{{id}}
+
+###
+
+GET http://localhost:8080/ingredients

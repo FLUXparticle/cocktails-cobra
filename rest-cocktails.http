@@ -1,0 +1,33 @@
+POST http://localhost:8080/cocktails
+Content-Type: application/json
+
+{
+  "name": "Mojito",
+  "instructions": [
+    { "amount": 5, "ingredient_id": 10 },
+    { "amount": 2, "ingredient_id": 11 }
+  ]
+}
+
+> {%  client.global.set("id", response.body.id); %}
+
+###
+
+GET http://localhost:8080/cocktails
+
+###
+
+GET http://localhost:8080/cocktails/2
+
+###
+
+PUT http://localhost:8080/cocktails/2
+Content-Type: application/json
+
+{
+  "name": "Mojito",
+  "instructions": [
+    { "amount": 5, "ingredient_id": 10 },
+    { "amount": 2, "ingredient_id": 11 }
+  ]
+}

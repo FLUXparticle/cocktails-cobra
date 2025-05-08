@@ -5,7 +5,7 @@ import (
 	"errors"
 )
 
-// LocalRepository implements CocktailRepository by providing data from a local source
+// LocalRepository implements MutableCocktailRepository by providing data from a local source
 type LocalRepository struct {
 	// This could be a local database, file storage, or in-memory cache
 	cocktails map[uint]*model.Cocktail
