@@ -10,6 +10,7 @@ import (
 // Global flags and service
 var (
 	offlineMode bool
+	useDatabase bool
 	// cocktailService is the global service instance used by all commands
 	cocktailService *service.CocktailService
 )
@@ -27,14 +28,15 @@ Die Anwendung kommuniziert mit einer externen API, um die Daten abzurufen und zu
 	// Initialize the cocktail service before any command runs
 	PersistentPreRun: func(cmd *cobra.Command, args []string) {
 		// Initialize the cocktail service with the appropriate repository
-		// based on the offline flag and store it in the global variable
-		cocktailService = initService(offlineMode)
+		// based on the flags and store it in the global variable
+		cocktailService = initService(offlineMode, useDatabase)
 	},
 }
 
 func init() {
 	// Define global flags
 	rootCmd.PersistentFlags().BoolVar(&offlineMode, "offline", false, "Run in offline mode using local data")
+	rootCmd.PersistentFlags().BoolVar(&useDatabase, "database", false, "Use database repository for storage")
 }
 
 func Execute() {

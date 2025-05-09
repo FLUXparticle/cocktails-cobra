@@ -3,6 +3,7 @@ package cocktails
 import (
 	"cocktails-cobra/pkg/cocktails/handler"
 	"cocktails-cobra/pkg/cocktails/repository"
+	"cocktails-cobra/pkg/cocktails/repository/database"
 	"cocktails-cobra/pkg/cocktails/repository/local"
 	"fmt"
 	"github.com/gin-gonic/gin"
@@ -17,7 +18,17 @@ var serverCmd = &cobra.Command{
 		// Create a new Gin router
 		router := gin.Default()
 
-		var repo repository.MutableCocktailRepository = &local.LocalRepository{}
+		// Initialize the database and create a database repository
+		var repo repository.MutableCocktailRepository
+
+		if useDatabase {
+			db := database.NewDatabase()
+			repo = database.NewDatabaseRepository(db)
+			fmt.Println("Running with database repository")
+		} else {
+			repo = local.NewLocalRepository()
+			fmt.Println("Running with memory repository")
+		}
 
 		// Create a new CocktailHandler with the repository from the service
 		cocktailHandler := handler.NewCocktailHandler(repo)
